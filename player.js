@@ -43,6 +43,7 @@ class Player {
                 var diffX = Math.abs(tile.position.x - this.position.x);
                 var diffY = Math.abs(tile.position.y - this.position.y);
                 var length = tile.length / 2 + this.length / 2;
+                //console.log(diffX+","+diffY+","+length);
                 if (diffX <= length && diffY <= length) {
                     collided = true;
                     break;

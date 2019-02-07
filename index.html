@@ -14,6 +14,7 @@ and open the template in the editor.
         <script type="text/javascript" src="tile.js"></script>
         <script type="text/javascript" src="player.js"></script>
         <script type="text/javascript" src="camera.js"></script>
+        <script type="text/javascript" src="enemy.js"></script>
         <script type="text/javascript">
             var width = 200;
             var height = 200;
@@ -26,6 +27,7 @@ and open the template in the editor.
             var player;
             var camera;
             var tileLength = 50;
+            var enemies = [];
             
             window.onload = function() {
                 canvas = document.getElementById("canvas");
@@ -37,6 +39,7 @@ and open the template in the editor.
                 map.load();
                 camera = new Camera();
                 player = new Player();
+                enemies.push(new Enemy(4, 3, 20));
                 requestAnimationFrame(update);
             };
             
@@ -51,6 +54,11 @@ and open the template in the editor.
                 
                 player.update(dt);
                 player.render(context);
+                
+                for (let enemy of enemies) {
+                    enemy.update(dt);
+                    enemy.render(context);
+                }
                 
                 requestAnimationFrame(update);
             }
@@ -72,6 +80,6 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
     </body>
 </html>

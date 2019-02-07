@@ -1,7 +1,7 @@
 class Player {
     
     constructor() {
-        this.moves = [[0,0], [0,1], [1,0], [-1,0], [0,-1]];
+        this.moves = [[0,0], [0,1], [1,0], [-1,0], [0,-1], [1,1], [1,-1], [-1,1], [-1,-1]];
         this.length = 10;
         this.position = new Vector((1 * tileLength + tileLength / 2), (1 * tileLength + tileLength / 2));
         this.velocity = new Vector(100, 100);
@@ -43,7 +43,6 @@ class Player {
                 var diffX = Math.abs(tile.position.x - this.position.x);
                 var diffY = Math.abs(tile.position.y - this.position.y);
                 var length = tile.length / 2 + this.length / 2;
-                //console.log(diffX+","+diffY+","+length);
                 if (diffX <= length && diffY <= length) {
                     collided = true;
                     break;

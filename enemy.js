@@ -64,7 +64,8 @@ class Enemy {
         for (let move of this.moves) {
             var newX = currX + move[0];
             var newY = currY + move[1];
-            if (newX >= 0 && newX < map.width && newY >= 0 && newY < map.height && !map.tiles[newY * map.width + newX].walkable) {
+            if (newX >= 0 && newX < map.width && newY >= 0 && newY < map.height 
+                    && (!map.tiles[newY * map.width + newX].walkable || map.tiles[newY * map.width + newX].type === PIT_TILE)) {
                 var tile = map.tiles[newY * map.width + newX];
                 var diffX = Math.abs(tile.position.x - newPosition.x);
                 var diffY = Math.abs(tile.position.y - newPosition.y);
@@ -88,7 +89,8 @@ class Enemy {
         for (let move of this.moves) {
             var newX = currX + move[0];
             var newY = currY + move[1];
-            if (newX >= 0 && newX < map.width && newY >= 0 && newY < map.height && !map.tiles[newY * map.width + newX].walkable) {
+            if (newX >= 0 && newX < map.width && newY >= 0 && newY < map.height 
+                    && (!map.tiles[newY * map.width + newX].walkable || map.tiles[newY * map.width + newX].type === PIT_TILE)) {
                 var tile = map.tiles[newY * map.width + newX];
                 var diffX = Math.abs(tile.position.x - newPosition.x);
                 var diffY = Math.abs(tile.position.y - newPosition.y);

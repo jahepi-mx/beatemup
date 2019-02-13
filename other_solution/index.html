@@ -16,7 +16,7 @@ and open the template in the editor.
         <script type="text/javascript" src="camera.js"></script>
         <script type="text/javascript">
             var width = 200;
-            var height = 200;
+            var height = 250;
             var origX = 0;
             var origY = height;
             var canvas, canvasXZ;
@@ -49,6 +49,8 @@ and open the template in the editor.
                 prevTime = time;
                 var fps = 1 / dt;
                 
+                context.clearRect(0, 0, width, height);
+                contextXZ.clearRect(0, 0, width, height);
                 camera.update(dt);
                 
                 map.render(context);

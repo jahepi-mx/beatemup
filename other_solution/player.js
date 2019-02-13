@@ -6,27 +6,30 @@ class Player {
         this.position = new Vector((1 * tileLength + tileLength / 2), 0, (1 * tileLength + tileLength / 2));
         this.velocity = new Vector(100, 0, 100);
         this.velocityTmp = new Vector(0, 0, 0);
-        this.gravity = new Vector(0, -50, 0);
+        this.gravity = new Vector(0, -100, 0);
         this.up = this.down = this.left = this.right = false;
-        this.friction = 0.95;
+        this.friction = 0.9;
         this.isJumping = false;
     }
     
     update(dt) {
-        if (this.left) {
-            this.velocityTmp.x = -Math.abs(this.velocity.x);
-        }
+        
+        if (!this.isJumping) {
+            if (this.left) {
+                this.velocityTmp.x = -Math.abs(this.velocity.x);
+            }
 
-        if (this.right) {
-            this.velocityTmp.x = Math.abs(this.velocity.x);
-        }
+            if (this.right) {
+                this.velocityTmp.x = Math.abs(this.velocity.x);
+            }
 
-        if (this.up) {
-            this.velocityTmp.z = Math.abs(this.velocity.z);
-        }
+            if (this.up) {
+                this.velocityTmp.z = Math.abs(this.velocity.z);
+            }
 
-        if (this.down) {
-            this.velocityTmp.z = -Math.abs(this.velocity.z);
+            if (this.down) {
+                this.velocityTmp.z = -Math.abs(this.velocity.z);
+            }
         }
 
         var currX = parseInt(this.position.x / tileLength);
@@ -102,14 +105,17 @@ class Player {
             this.velocityTmp.y = 0;
             this.isJumping = false;
         }
-        
+        console.log(this.position.y);
         this.velocityTmp = this.velocityTmp.add(this.gravity.mul(dt));
         if (this.position.y < 0) {
             this.position.y = 0;
             this.velocityTmp.y = 0;
             this.isJumping = false;
         }
-        this.velocityTmp = this.velocityTmp.mul(this.friction);
+        
+        this.velocityTmp.x *= this.friction;
+        this.velocityTmp.z *= this.friction;
+        this.velocityTmp.y *= 0.99;
     }
     
     jump() {
@@ -120,14 +126,15 @@ class Player {
     }
     
     renderXZ(context) {
-        context.fillStyle = "#f0f0f0";
+        context.fillStyle = "#ff0000";
         context.fillRect(origX + ((this.position.x - this.length / 2) + camera.position.x), origY - (this.position.z + this.length / 2), this.length, this.length);
     }
     
     render(context) {
-        var y = (this.position.z + this.length / 2) + this.position.y;
-        context.fillStyle = "#f0f0f0";
+        var y = (this.position.z + this.length / 2) + this.position.y * 0.5;
+        context.fillStyle = "#ff0000";
         context.fillRect(origX + ((this.position.x - this.length / 2) + camera.position.x), origY - y, this.length, this.length);
+        //context.fillRect(origX + ((this.position.x - this.length / 2) + camera.position.x), origY - (this.position.z + this.length / 2), this.length, this.length);
     }
 }
 
